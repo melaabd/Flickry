@@ -27,6 +27,7 @@
 		96F8F25B279697FF009C11AC /* PhotoCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F8F25A279697FF009C11AC /* PhotoCellVM.swift */; };
 		96F8F25D2796ABBA009C11AC /* ExUICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F8F25C2796ABBA009C11AC /* ExUICollectionView.swift */; };
 		96F8F25F279718E3009C11AC /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F8F25E279718E3009C11AC /* EndPoint.swift */; };
+		96F8F27727974685009C11AC /* SearchHistoryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F8F27627974685009C11AC /* SearchHistoryCVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		96F8F25A279697FF009C11AC /* PhotoCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellVM.swift; sourceTree = "<group>"; };
 		96F8F25C2796ABBA009C11AC /* ExUICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExUICollectionView.swift; sourceTree = "<group>"; };
 		96F8F25E279718E3009C11AC /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		96F8F27627974685009C11AC /* SearchHistoryCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCVCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 			children = (
 				0FB09A262794FC9C0059A872 /* SearchVC.swift */,
 				0FB09A6A27950CEB0059A872 /* PhotoCVCell.swift */,
+				96F8F27627974685009C11AC /* SearchHistoryCVCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			files = (
 				0FB09A6727950B460059A872 /* Photo.swift in Sources */,
 				0FB09A272794FC9C0059A872 /* SearchVC.swift in Sources */,
+				96F8F27727974685009C11AC /* SearchHistoryCVCell.swift in Sources */,
 				0FB09A5C279509A00059A872 /* ExString.swift in Sources */,
 				0FB09A59279509470059A872 /* AlertDelegate.swift in Sources */,
 				0FB09A6927950BAF0059A872 /* ImgProvider.swift in Sources */,

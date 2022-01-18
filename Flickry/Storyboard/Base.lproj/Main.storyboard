@@ -35,7 +35,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCVCell" id="t8N-IW-cGp" customClass="PhotoCVCell" customModule="Flickry" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <rect key="frame" x="143" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pUj-l9-fdS">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
@@ -67,6 +67,75 @@
                                         <connections>
                                             <outlet property="containerView" destination="iZx-2r-mdS" id="igK-OA-IFt"/>
                                             <outlet property="imageView" destination="RRM-31-ctC" id="H3v-TW-PmO"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchHistoryCVCell" id="cLt-q5-Ffi" customClass="SearchHistoryCVCell" customModule="Flickry" customModuleProvider="target">
+                                        <rect key="frame" x="7" y="138" width="400" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iK4-zy-TLF">
+                                                    <rect key="frame" x="20" y="0.0" width="360" height="30"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWI-oX-1u5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="Iet-w8-UJM"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="80m-ig-ey5">
+                                                            <rect key="frame" x="330" y="0.0" width="30" height="30"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVx-y9-BAM">
+                                                                    <rect key="frame" x="5" y="5" width="20" height="20"/>
+                                                                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <state key="normal" title="Button"/>
+                                                                    <buttonConfiguration key="configuration" style="plain" title="X">
+                                                                        <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                                    </buttonConfiguration>
+                                                                    <connections>
+                                                                        <action selector="removeBtnAction:" destination="cLt-q5-Ffi" eventType="touchUpInside" id="gFd-0F-cDD"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="IVx-y9-BAM" firstAttribute="top" secondItem="80m-ig-ey5" secondAttribute="top" constant="5" id="8x0-e3-bVm"/>
+                                                                <constraint firstAttribute="width" secondItem="80m-ig-ey5" secondAttribute="height" id="CaM-OB-NOe"/>
+                                                                <constraint firstAttribute="bottom" secondItem="IVx-y9-BAM" secondAttribute="bottom" constant="5" id="J7M-MC-cBG"/>
+                                                                <constraint firstAttribute="trailing" secondItem="IVx-y9-BAM" secondAttribute="trailing" constant="5" id="csN-dp-aGS"/>
+                                                                <constraint firstItem="IVx-y9-BAM" firstAttribute="leading" secondItem="80m-ig-ey5" secondAttribute="leading" constant="5" id="qXL-Y1-rBy"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rBV-rC-L05">
+                                                    <rect key="frame" x="20" y="29.5" width="360" height="0.5"/>
+                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="HMk-yK-Mzu"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="rBV-rC-L05" firstAttribute="leading" secondItem="iK4-zy-TLF" secondAttribute="leading" id="EA9-Ep-dgM"/>
+                                            <constraint firstAttribute="trailing" secondItem="iK4-zy-TLF" secondAttribute="trailing" constant="20" id="LfX-nd-TDe"/>
+                                            <constraint firstItem="iK4-zy-TLF" firstAttribute="leading" secondItem="cLt-q5-Ffi" secondAttribute="leading" constant="20" id="abB-vg-jDf"/>
+                                            <constraint firstItem="rBV-rC-L05" firstAttribute="bottom" secondItem="iK4-zy-TLF" secondAttribute="bottom" id="jeZ-l7-fOC"/>
+                                            <constraint firstAttribute="bottom" secondItem="iK4-zy-TLF" secondAttribute="bottom" id="qGp-RO-U3R"/>
+                                            <constraint firstItem="rBV-rC-L05" firstAttribute="trailing" secondItem="iK4-zy-TLF" secondAttribute="trailing" id="qHz-eo-04x"/>
+                                        </constraints>
+                                        <size key="customSize" width="400" height="30"/>
+                                        <connections>
+                                            <outlet property="removeBtn" destination="IVx-y9-BAM" id="aXi-yP-FFD"/>
+                                            <outlet property="titleLbl" destination="sWI-oX-1u5" id="lBC-sP-lmN"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -120,6 +189,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

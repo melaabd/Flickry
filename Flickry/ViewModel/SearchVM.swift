@@ -16,6 +16,7 @@ class SearchVM {
     var showLoading: CompletionVoid?
     var hideLoading: CompletionVoid?
     var imgProvider = ImgProvider()
+    var isSearching:Bool = false
     private var router:Router?
     
     var pageCount = 1 {
@@ -26,10 +27,14 @@ class SearchVM {
         }
     }
     
+    // search history properties
+    var filteredSearchHistory:[String] = []
+    var searchHistory:Set<String> = []
     private var lastSearchTxt:String = ""
     
     func search(text:String? = nil) {
         if let searchTxt = text {
+            searchHistory.insert(searchTxt)
             lastSearchTxt = searchTxt
         }
         showLoading?()
@@ -63,6 +68,20 @@ class SearchVM {
         pageCount = 1
         router?.cancelTask()
         photoCellVMs?.removeAll()
+        bindingDelegate?.reloadData()
+    }
+}
+
+// MARK: - handle search history data
+extension SearchVM {
+    
+    func filterHistory(txt: String) {
+        filteredSearchHistory = searchHistory.filter{$0.contains(txt)}
+        bindingDelegate?.reloadData()
+    }
+    
+    func removeSearchHistoryItem(item: String) {
+        searchHistory.remove(item)
         bindingDelegate?.reloadData()
     }
 }

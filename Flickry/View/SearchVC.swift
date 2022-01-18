@@ -76,12 +76,18 @@ extension SearchVC: UISearchControllerDelegate {
             self?.searchControler.searchBar.becomeFirstResponder()
         }
     }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        searchVM?.isSearching = false
+        reloadData()
+    }
 }
 
 //MARK: - SearchBar Delegate
 extension SearchVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchVM?.isSearching = false
         searchBar.resignFirstResponder()
         
         //Reset old data first befor new search Results
@@ -98,7 +104,12 @@ extension SearchVC: UISearchBarDelegate {
         ///Start search
         searchVM?.search(text: searchBar.text)
         loadingLbl.text = "Searching Images..."
-        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let text = searchBar.text?.removeSpace(), text.count != 0  else {return}
+        searchVM?.isSearching = true
+        searchVM?.filterHistory(txt: searchBar.text!)
     }
 }
 
@@ -106,20 +117,32 @@ extension SearchVC: UISearchBarDelegate {
 extension SearchVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let itemsCount = searchVM?.photoCellVMs?.count ?? 0
+        var itemsCount = 0
+        itemsCount = (searchVM?.isSearching ?? false) ? searchVM?.filteredSearchHistory.count ?? 0 : searchVM?.photoCellVMs?.count ?? 0
         (itemsCount > 0) ? collectionView.setEmptyView() : collectionView.setEmptyView("No Items")
         return itemsCount
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCVCell.self), for: indexPath) as? PhotoCVCell ?? PhotoCVCell()
-        cell.imageView.image = nil
-        return cell
+        if searchVM?.isSearching ?? false {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SearchHistoryCVCell.self), for: indexPath) as? SearchHistoryCVCell ?? SearchHistoryCVCell()
+            guard let itemTxt = searchVM?.filteredSearchHistory[indexPath.item] else { return cell }
+            cell.titleLbl.text = itemTxt
+            cell.removeItemCompletion = { [weak self] in
+                self?.searchVM?.removeSearchHistoryItem(item: itemTxt)
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCVCell.self), for: indexPath) as? PhotoCVCell ?? PhotoCVCell()
+            cell.imageView.image = nil
+            return cell
+        }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard !(searchVM?.isSearching ?? false) else { return }
         if let cell = cell as? PhotoCVCell {
             guard let mediaUrl = searchVM?.photoCellVMs?[indexPath.row].photoUrl else { return }
             if let image = searchVM?.imgProvider.cache.object(forKey: mediaUrl as NSURL) {
@@ -139,13 +162,24 @@ extension SearchVC: UICollectionViewDataSource {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard (searchVM?.isSearching ?? false), let itemTxt = searchVM?.filteredSearchHistory[indexPath.item] else { return }
+        searchControler.searchBar.text = itemTxt
+        searchBarSearchButtonClicked(searchControler.searchBar)
+    }
+    
 }
 
 //MARK:- UICollectionViewDelegateFlowLayout
 extension SearchVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.bounds.width)/2, height: (collectionView.bounds.width)/2)
+        if (searchVM?.isSearching ?? false) {
+            return CGSize(width: collectionView.bounds.width , height: 50)
+        } else {
+            return CGSize(width: (collectionView.bounds.width)/2, height: (collectionView.bounds.width)/2)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
