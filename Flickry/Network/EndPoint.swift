@@ -9,7 +9,10 @@ import Foundation
 
 enum EndPoint {
     
+    /// static property for base url
     static let baseUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search"
+    
+    /// static property for apiKey
     static let apiKey = "3e7cc266ae2b0e0d78e279ce8e361736"
     
     case photos(keyword:String, page:Int)
@@ -22,6 +25,7 @@ enum EndPoint {
         }
     }
     
+    /// url for the endPoint
     var url:URL {
         guard let url = URL(string: "\(EndPoint.baseUrl)&\(path)&api_key=\(EndPoint.apiKey)") else {fatalError("Invalid Base URL.")}
         return url

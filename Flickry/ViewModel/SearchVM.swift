@@ -29,9 +29,11 @@ class SearchVM {
     
     // search history properties
     var filteredSearchHistory:[String] = []
-    var searchHistory:Set<String> = []
+    var searchHistory:Set<String> = [] // store history in a `Set` to avoid dublication
     private var lastSearchTxt:String = ""
     
+    /// search for photos by inout keyword
+    /// - Parameter text: `String`
     func search(text:String? = nil) {
         if let searchTxt = text {
             searchHistory.insert(searchTxt)
@@ -53,6 +55,8 @@ class SearchVM {
         }
     }
     
+    /// handle data in viewmodel
+    /// - Parameter photos: `Photo` Model
     func prepareDataSource(photos: [Photo]) {
         let photoVMs = photos.map{PhotoCellVM(photo: $0)}
         if pageCount > 1 {
@@ -75,11 +79,15 @@ class SearchVM {
 // MARK: - handle search history data
 extension SearchVM {
     
+    /// filter in search history
+    /// - Parameter txt: `String`
     func filterHistory(txt: String) {
         filteredSearchHistory = searchHistory.filter{$0.contains(txt)}
         bindingDelegate?.reloadData()
     }
     
+    /// remove item from old history
+    /// - Parameter item: `String`
     func removeSearchHistoryItem(item: String) {
         searchHistory.remove(item)
         bindingDelegate?.reloadData()

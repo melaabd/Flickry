@@ -36,6 +36,7 @@ class SearchVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /// setup UI components
     private func configureUI() {
         
         title = "Flickrs"
@@ -43,12 +44,17 @@ class SearchVC: UIViewController {
         createSearchBar()
     }
     
+    /// conform with completions that called in viewmodel
     private func viewModelCompletions() {
+        
+        // show loading sign
         searchVM?.showLoading = {
             GCD.onMain { [weak self] in
                 self?.loadingLbl.isHidden = false
             }
         }
+        
+        // hide loading sign
         searchVM?.hideLoading = {
             GCD.onMain { [weak self] in
                 self?.loadingLbl.isHidden = true
@@ -56,6 +62,7 @@ class SearchVC: UIViewController {
         }
     }
     
+    /// intialize search controller with setting properties
     private func createSearchBar() {
         searchControler = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchControler

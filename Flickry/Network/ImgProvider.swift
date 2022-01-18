@@ -11,7 +11,10 @@ protocol RequestImages {}
 
 struct ImgProvider: RequestImages {
     
+    /// labeled thread for loafing images in background
     fileprivate let downloadQueue = DispatchQueue(label: "Images cache", qos: DispatchQoS.background)
+    
+    /// NSCache for loaded images
     internal var cache = NSCache<NSURL, UIImage>()
     
     
@@ -44,6 +47,10 @@ struct ImgProvider: RequestImages {
 }
 
 extension RequestImages where Self == ImgProvider {
+    /// load image from remote
+    /// - Parameters:
+    ///   - url: `URL`
+    ///   - completion: `UIImage`
     func requestImage(from url: URL, completion: @escaping (_ image: UIImage) -> Void){
         self.loadImages(from: url, completion: completion)
     }

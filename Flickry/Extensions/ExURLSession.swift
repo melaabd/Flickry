@@ -11,6 +11,8 @@ import Foundation
 //MARK: - URLSession response handlers
 extension URLSession: RequestFlickrImages {
     
+    /// task for fetch data the generic types
+    /// - Returns: `URLSessionDataTask`
     fileprivate func codableTask<T: Codable>(with url: URL, completionHandler: @escaping (T?, String?) -> Void) -> URLSessionDataTask {
         return self.dataTask(with: url) { [weak self] data, response, error in
             

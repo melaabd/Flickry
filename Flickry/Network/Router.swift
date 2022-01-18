@@ -34,6 +34,11 @@ class Router: RequestFlickrImages {
 
 extension Router {
     
+    /// get photos task
+    /// - Parameters:
+    ///   - keyword: `String` search keyword
+    ///   - page: `Int` next page
+    ///   - completionHandler: `PhotosAPICompletion`
     func getPhotos(keyword: String, page: Int, completionHandler: PhotosAPICompletion) {
         let session = URLSession.shared
         let endPoint = EndPoint.photos(keyword: keyword, page: page)
