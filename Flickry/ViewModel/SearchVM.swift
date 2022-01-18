@@ -53,7 +53,7 @@ class SearchVM {
         }
     }
     
-    private func prepareDataSource(photos: [Photo]) {
+    func prepareDataSource(photos: [Photo]) {
         let photoVMs = photos.map{PhotoCellVM(photo: $0)}
         if pageCount > 1 {
             photoCellVMs?.append(contentsOf: photoVMs)
